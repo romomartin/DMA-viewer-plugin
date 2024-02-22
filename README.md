@@ -1,4 +1,4 @@
-# Qatium Sample plugin in Vanilla Typescript
+# Qatium Sample plugin in React Typescript
 
 This sample is a skeleton project of a Qatium plugin. Using it, you can extend Qatium's functionality and its user interface.
 
