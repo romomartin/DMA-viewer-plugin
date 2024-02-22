@@ -1,43 +1,30 @@
-import { AssetStatus, OverlayLayer, PluginI, SDK, ValveFamilies } from "@qatium/plugin";
+import { PluginI, SDK } from "@qatium/plugin";
+import { Message } from './types';
 
-class Plugin implements PluginI {
-  onNetworkChanged() {
-    console.log("network changed");
-  }
+class Plugin implements PluginI<Message> {
+  selectedElement: ReturnType<SDK["map"]["getSelectedElement"]>;
 
   run(sdk: SDK) {
-    const hydrants = sdk.network.getJunctions((j) => j.group === 'hydrant');
+    const newSelectedElement = sdk.map.getSelectedElement()
 
-    sdk.map.addOverlay([
-      {
-        type: 'HeatmapLayer',
-        id: 'density',
-        data: hydrants.map((h) => ({ geometry: h.geometry, properties: {}, type: 'Feature' })),
-        opacity: 0.5,
-        visible: true,
-        getPosition: (j) => j.geometry.coordinates,
-        radiusPixels: 25
-      } as OverlayLayer<"HeatmapLayer">
-    ]);
-
-    sdk.ui.sendMessage(sdk.network.getValves((a) => (
-      a.family === ValveFamilies.TCV &&
-      !!a.simulation &&
-      a.simulation.status === AssetStatus.CLOSED
-    )).length);
-  }
-
-  onMessage(sdk: SDK, message: unknown) {
-    if (typeof message !== "string") {
+    if (newSelectedElement?.id === this.selectedElement?.id) {
       return;
     }
 
-    switch(message) {
-      case "zoomMap":
-        return sdk.map.fitTo(["Mandalay_P1"], { flightDuration: 2000 });
-      default:
-        return;
+    this.selectedElement = newSelectedElement;
+
+    return sdk.ui.sendMessage<Message>({
+      event: "selected-element",
+      selectedElement: newSelectedElement
+    })
+  }
+
+  onMessage(sdk: SDK, message: Message) {
+    if (message.event !== "close-valve") {
+      return;
     }
+
+    return sdk.network.setStatus(message.valveId, "CLOSED");
   }
 }
 

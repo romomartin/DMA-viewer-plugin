@@ -1,6 +1,5 @@
 import { defineConfig } from "vite"
 import { viteSingleFile } from "vite-plugin-singlefile"
-import { ViteEjsPlugin } from "vite-plugin-ejs";
 import react from '@vitejs/plugin-react'
 
 export default defineConfig(() => {
@@ -8,7 +7,7 @@ export default defineConfig(() => {
     build: {
       emptyOutDir: false
     },
-    plugins: [viteSingleFile(), react(), ViteEjsPlugin(), {
+    plugins: [viteSingleFile(), react(), {
       name: "configure-response-headers",
       configureServer: server => {
         server.middlewares.use((_req, res, next) => {
