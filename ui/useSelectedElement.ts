@@ -1,4 +1,4 @@
-import { AssetTypes, onMessage } from '@qatium/plugin';
+import { AssetTypes, onMessage } from '@qatium/plugin/ui';
 import { useEffect, useState } from 'react';
 import { Message, SelectedElement } from '../plugin/types';
 

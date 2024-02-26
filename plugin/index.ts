@@ -1,4 +1,4 @@
-import { PluginI, SDK } from "@qatium/plugin";
+import { PluginI, SDK } from "@qatium/plugin/engine";
 import { Message } from './types';
 
 class Plugin implements PluginI<Message> {
