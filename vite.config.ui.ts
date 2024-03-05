@@ -13,6 +13,7 @@ export default defineConfig(() => {
         server.middlewares.use((_req, res, next) => {
           res.setHeader("Access-Control-Request-Private-Network", "true");
           res.setHeader("Access-Control-Allow-Private-Network", "true");
+          res.setHeader("Access-Control-Expose-Headers", "ETag")
           next();
         });
       }
