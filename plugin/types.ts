@@ -1,4 +1,4 @@
-import { SDK, Valve } from '@qatium/plugin'
+import { SDK, Valve } from '@qatium/plugin/engine'
 
 export type SelectedElement = ReturnType<SDK["map"]["getSelectedElement"]>
 
