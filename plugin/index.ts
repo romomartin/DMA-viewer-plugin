@@ -1,4 +1,4 @@
-import { PluginI, SDK } from "@qatium/plugin/engine";
+import { PluginI, SDK, registerPlugin } from "@qatium/plugin/engine";
 import { Message } from './types';
 
 class Plugin implements PluginI<Message> {
@@ -28,4 +28,4 @@ class Plugin implements PluginI<Message> {
   }
 }
 
-register(new Plugin());
+registerPlugin(new Plugin());
