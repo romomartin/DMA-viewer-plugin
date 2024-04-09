@@ -1,30 +1,16 @@
 import { PluginI, SDK, registerPlugin } from "@qatium/plugin/engine";
-import { Message } from './types';
+import { Message, events } from "./types";
+import { getColor } from "./colors";
 
 class Plugin implements PluginI<Message> {
   selectedElement: ReturnType<SDK["map"]["getSelectedElement"]>;
 
   run(sdk: SDK) {
-    const newSelectedElement = sdk.map.getSelectedElement()
-
-    if (newSelectedElement?.id === this.selectedElement?.id) {
-      return;
-    }
-
-    this.selectedElement = newSelectedElement;
-
-    return sdk.ui.sendMessage<Message>({
-      event: "selected-element",
-      selectedElement: newSelectedElement
-    })
-  }
-
-  onMessage(sdk: SDK, message: Message) {
-    if (message.event !== "close-valve") {
-      return;
-    }
-
-    return sdk.network.setStatus(message.valveId, "CLOSED");
+    const dmas = sdk.network
+        .getZones()
+        .map((zone, i) => ({ id: zone.id, color: getColor(i) }));
+  
+      sdk.ui.sendMessage<Message>({ event: events.getDMAs, dmas });
   }
 }
 

@@ -1,13 +1,10 @@
-import { SDK, Valve } from '@qatium/plugin/engine'
-
-export type SelectedElement = ReturnType<SDK["map"]["getSelectedElement"]>
-
-export type Message =
-  | {
-    event: "selected-element",
-    selectedElement: SelectedElement
+export enum events {
+    getDMAs = "get-dmas",
   }
-  | {
-    event: "close-valve",
-    valveId: Valve["id"]
-  }
+  
+export type DMA = { id: string; color: string };
+
+export type Message = {
+    event: events.getDMAs;
+    dmas: DMA[];
+};
