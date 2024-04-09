@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./panel.css";
 import { DMA, Message, events } from "../../plugin/types";
-import { onMessage } from "@qatium/plugin/ui";
+import { onMessage, sendMessage } from "@qatium/plugin/ui";
 import { ColorResult } from "react-color";
 import { COLORS } from "../../plugin/colors"
 import Circle from "react-color/lib/components/circle/Circle";
@@ -41,6 +41,9 @@ const Row = ({ dma }: { dma: DMA }) => {
   };
 
   const handleColorChange = (color: ColorResult) => {
+    const changedDMA: DMA = {id: dma.id, color: color.hex}
+    sendMessage<Message>({ event: events.changeDMAcolor, dma:changedDMA });
+    
     setDmaColor(color.hex);
     displayColorPicker();
   };
