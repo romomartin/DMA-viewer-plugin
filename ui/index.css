@@ -2,6 +2,9 @@
 
 html * {
   font-family: 'Exo 2', "Source Sans Pro", sans-serif;
+}
+
+html {
   overflow: hidden;
 }
 

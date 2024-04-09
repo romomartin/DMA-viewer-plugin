@@ -1,0 +1,52 @@
+.panel {
+    height: 150px;
+}
+  
+.panel-body {
+  height: 150px;
+  overflow: auto;
+  scrollbar-color: rgb(97, 97, 133) rgba(0, 0, 0, 0);
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
+.row .text{
+  font-size:  14px;
+  color: rgb(180, 180, 202);
+  margin: 8px
+}
+
+.row button{
+  margin-left: 2px ;
+  width: 17px;
+  height: 17px;
+  border-radius: 8.5em;
+  border: none;
+  transition: transform 100ms ease 0s;
+}
+
+.row .selected{
+  border: 2px solid #FFFFFF;
+}
+
+.row button:hover{
+  transform: scale(1.2)
+}
+
+.circle-picker{
+  width: 175px !important;
+  background-color: #4A4A68;
+  padding: 8px 0 8px 8px;
+  border-radius: 8px;
+  overflow: clip;
+  margin-bottom: 0 !important;
+}
+
+.circle-picker span div{
+  margin-bottom: 0 !important;
+}
