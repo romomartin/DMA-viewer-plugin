@@ -15,8 +15,8 @@ export const buildPipeLayer = (
         ({
           type: "Feature",
           geometry: pipe.geometry,
-          properties: {},
-        } as Feature)
+          properties: {}
+        }) as Feature
     ),
     opacity: 1,
     getLineColor: hexToRgb(color),
@@ -25,10 +25,10 @@ export const buildPipeLayer = (
     stroked: true,
     lineJointRounded: true,
     lineCapRounded: true,
-    visible: true,
+    visible: true
   };
 };
-  
+
 // const hexToRgb = (hex: string): Color => {
 //   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 //   return result
@@ -46,7 +46,7 @@ const hexToRgb = (hex: string): Color => {
     ? [
         hexToDecimal(result[1]),
         hexToDecimal(result[2]),
-        hexToDecimal(result[3]),
+        hexToDecimal(result[3])
       ]
     : [0, 0, 0];
 };
