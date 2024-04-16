@@ -1,11 +1,11 @@
 export const COLORS = [
-  "#FF6900",
-  "#FCB900",
-  "#7BDCB5",
-  "#8ED1FC",
-  "#EB144C",
-  "#F78DA7",
-  "#9900EF"
+  "#2FF5DE",
+  "#3985F6",
+  "#76EE58",
+  "#E81543",
+  "#F36E23",
+  "#F454B4",
+  "#F7D421"
 ];
 
 export const getColor = (index: number): string => {
