@@ -19,6 +19,22 @@ export const Panel = () => {
 };
 
 const PanelBody = ({ dmas }: { dmas: DMA[] }) => {
+  if (dmas.length === 0)
+    return (
+      <div className="panel-body">
+        <p>
+          Add a zones layer first.{" "}
+          <a
+            href="https://help.qatium.com/hc/en-us/articles/23182710465937-Zones"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Learn how here
+          </a>
+        </p>
+      </div>
+    );
+
   return (
     <div className="panel-body">
       {dmas.map((dma, i) => (
