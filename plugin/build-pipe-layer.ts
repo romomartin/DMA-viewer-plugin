@@ -29,39 +29,13 @@ export const buildPipeLayer = (
   };
 };
 
-// const hexToRgb = (hex: string): Color => {
-//   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-//   return result
-//     ? [
-//         parseInt(result[1], 16),
-//         parseInt(result[2], 16),
-//         parseInt(result[3], 16),
-//       ]
-//     : [0, 0, 0];
-// };
-
 const hexToRgb = (hex: string): Color => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? [
-        hexToDecimal(result[1]),
-        hexToDecimal(result[2]),
-        hexToDecimal(result[3])
+        parseInt(result[1], 16),
+        parseInt(result[2], 16),
+        parseInt(result[3], 16)
       ]
     : [0, 0, 0];
-};
-
-const hexToDecimal = (hexString: string): number => {
-  const hexDigits = "0123456789ABCDEF";
-  let decimalNumber = 0;
-
-  for (let i = 0; i < hexString.length; i++) {
-    const digit = hexDigits.indexOf(hexString[i].toUpperCase());
-    if (digit === -1) {
-      throw new Error("Invalid hexadecimal string");
-    }
-    decimalNumber = decimalNumber * 16 + digit;
-  }
-
-  return decimalNumber;
 };
