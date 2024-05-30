@@ -15,28 +15,24 @@ export const Panel = () => {
     }
   });
 
-  return (
-    <div className="panel">
-      <PanelBody dmas={dmas}></PanelBody>
-    </div>
-  );
+  return <PanelBody dmas={dmas}></PanelBody>;
 };
 
 const PanelBody = ({ dmas }: { dmas: DMA[] }) => {
   return (
     <div className="panel-body">
-      {dmas?.map((dma, i) => {
-        return <Row key={i} dma={dma}></Row>;
-      })}
+      {dmas.map((dma, i) => (
+        <Row key={i} dma={dma}></Row>
+      ))}
     </div>
   );
 };
 
 const Row = ({ dma }: { dma: DMA }) => {
   const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
-  const [dmaColor, setDmaColor] = useState<string>(dma.color);
+  const [pickerColor, setPickerColor] = useState<string>(dma.color);
 
-  const displayColorPicker = () => {
+  const toggleColorPicker = () => {
     setShowColorPicker(!showColorPicker);
   };
 
@@ -44,8 +40,8 @@ const Row = ({ dma }: { dma: DMA }) => {
     const changedDMA: DMA = { id: dma.id, color: color.hex };
     sendMessage<Message>({ event: events.changeDMAcolor, dma: changedDMA });
 
-    setDmaColor(color.hex);
-    displayColorPicker();
+    setPickerColor(color.hex);
+    toggleColorPicker();
   };
 
   return (
@@ -54,8 +50,8 @@ const Row = ({ dma }: { dma: DMA }) => {
         <button
           className={showColorPicker ? "selected" : ""}
           aria-label={`${dma.id}-color-picker-button`}
-          onClick={displayColorPicker}
-          style={{ backgroundColor: dmaColor }}
+          onClick={toggleColorPicker}
+          style={{ backgroundColor: pickerColor }}
         ></button>
         <div className="text">{dma.id}</div>
       </div>
