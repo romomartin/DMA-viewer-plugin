@@ -53,7 +53,11 @@ const Row = ({ dma }: { dma: DMA }) => {
   };
 
   const handleColorChange = (color: ColorResult) => {
-    const changedDMA: DMA = { id: dma.id, color: color.hex };
+    const changedDMA: DMA = {
+      id: dma.id,
+      color: color.hex,
+      hasPipes: dma.hasPipes
+    };
     sendMessage<Message>({ event: events.changeDMAcolor, dma: changedDMA });
 
     setPickerColor(color.hex);

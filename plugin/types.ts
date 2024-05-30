@@ -3,7 +3,7 @@ export enum events {
   changeDMAcolor = "change-color"
 }
 
-export type DMA = { id: string; color: string };
+export type DMA = { id: string; color: string; hasPipes: boolean };
 
 export type Message =
   | {

@@ -37,9 +37,19 @@ class Plugin implements PluginI<Message> {
 }
 
 const getDmas = (sdk: SDK): DMA[] => {
-  return sdk.network
-    .getZones()
-    .map((zone, index) => ({ id: zone.id, color: getColor(index) }));
+  return sdk.network.getZones().map((zone, index) => ({
+    id: zone.id,
+    color: getColor(index),
+    hasPipes: hasPipes(sdk, zone.id)
+  }));
+};
+
+const hasPipes = (sdk: SDK, zoneId: string): boolean => {
+  const dmaPipes = sdk.network
+    .getZone(zoneId)
+    ?.getPipes((pipe) => pipe.group === PipeGroups.Main);
+
+  return dmaPipes !== undefined && dmaPipes.length > 0;
 };
 
 const buildDmaLayers = (
