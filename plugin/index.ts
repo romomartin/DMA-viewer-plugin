@@ -1,5 +1,6 @@
 import {
   OverlayLayer,
+  Pipe,
   PipeGroups,
   PluginI,
   SDK,
@@ -10,59 +11,90 @@ import { getColor } from "./colors";
 import { buildPipeLayer } from "./build-pipe-layer";
 
 class Plugin implements PluginI<Message> {
-  overlay: OverlayLayer<"GeoJsonLayer">[] = [];
+  isFirstRun: boolean = true;
+  dmaLayers: OverlayLayer<"GeoJsonLayer">[] = [];
   dmas: DMA[] = [];
 
   run(sdk: SDK) {
-    if (this.overlay.length === 0) {
-      this.dmas = sdk.network
-        .getZones()
-        .map((zone, i) => ({ id: zone.id, color: getColor(i) }));
-
-      this.dmas.forEach((dma) => {
-        const dmaPipes = sdk.network
-          .getZone(dma.id)
-          ?.getPipes((pipe) => pipe.group === PipeGroups.Main);
-
-        if (dmaPipes && dmaPipes.length > 0)
-          this.overlay.push(buildPipeLayer(dma.id, dmaPipes, dma.color));
-      });
+    if (this.isFirstRun) {
+      this.dmas = getDmas(sdk);
+      this.dmaLayers = buildDmaLayers(sdk, this.dmas);
+      this.isFirstRun = false;
     }
 
     sdk.ui.sendMessage<Message>({ event: events.getDMAs, dmas: this.dmas });
-    sdk.map.addOverlay(this.overlay);
+    sdk.map.addOverlay(this.dmaLayers);
   }
 
   onMessage(sdk: SDK, message: Message) {
     if (message.event === events.changeDMAcolor) {
-      const changedDmaIndex = this.dmas.findIndex(
-        (dma) => dma.id === message.dma.id
-      );
-      this.dmas[changedDmaIndex] = message.dma;
-
-      const newOverlay = changeDmaLayer(sdk, this.overlay, message.dma);
-      this.overlay = newOverlay;
+      updateDmas(message.dma, this.dmas);
+      this.dmaLayers = updateDmaLayers(sdk, this.dmaLayers, message.dma);
 
       this.run(sdk);
     }
   }
 }
 
-const changeDmaLayer = (
+const getDmas = (sdk: SDK): DMA[] => {
+  return sdk.network
+    .getZones()
+    .map((zone, index) => ({ id: zone.id, color: getColor(index) }));
+};
+
+const buildDmaLayers = (
   sdk: SDK,
-  overlay: OverlayLayer<"GeoJsonLayer">[],
-  dma: DMA
+  dmas: DMA[]
 ): OverlayLayer<"GeoJsonLayer">[] => {
+  const dmaLayers: OverlayLayer<"GeoJsonLayer">[] = [];
+
+  dmas.forEach((dma) => {
+    const dmaLayer = buildDmaLayer(sdk, dma);
+    if (dmaLayer) dmaLayers.push(dmaLayer);
+  });
+
+  return dmaLayers;
+};
+
+const updateDmas = (newDma: DMA, dmas: DMA[]) => {
+  const changedDmaIndex = dmas.findIndex((dma) => dma.id === newDma.id);
+  dmas[changedDmaIndex] = newDma;
+};
+
+const updateDmaLayers = (
+  sdk: SDK,
+  dmaLayers: OverlayLayer<"GeoJsonLayer">[],
+  updatedDma: DMA
+): OverlayLayer<"GeoJsonLayer">[] => {
+  const newLayer = buildDmaLayer(sdk, updatedDma);
+  if (!newLayer) return dmaLayers;
+
+  const indexToChange = dmaLayers.findIndex(
+    (layer) => layer.id === updatedDma.id
+  );
+  dmaLayers[indexToChange] = newLayer;
+  return dmaLayers;
+};
+
+const buildDmaLayer = (
+  sdk: SDK,
+  dma: DMA
+): OverlayLayer<"GeoJsonLayer"> | undefined => {
+  const dmaPipes = getDmaPipes(sdk, dma);
+  if (!dmaPipes) return;
+
+  return buildPipeLayer(dma.id, dmaPipes, dma.color);
+};
+
+const getDmaPipes = (sdk: SDK, dma: DMA): Pipe[] | undefined => {
   const dmaPipes = sdk.network
     .getZone(dma.id)
     ?.getPipes((pipe) => pipe.group === PipeGroups.Main);
 
-  if (!dmaPipes) return overlay;
+  if (dmaPipes === undefined) return;
+  if (dmaPipes.length === 0) return;
 
-  const newLayer = buildPipeLayer(dma.id, dmaPipes, dma.color);
-  const indexToChange = overlay.findIndex((layer) => layer.id === dma.id);
-  overlay[indexToChange] = newLayer;
-  return overlay;
+  return dmaPipes;
 };
 
 registerPlugin(new Plugin());
