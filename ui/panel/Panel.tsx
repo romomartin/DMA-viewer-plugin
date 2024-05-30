@@ -40,6 +40,19 @@ const PanelBody = ({ dmas }: { dmas: DMA[] }) => {
       {dmas.map((dma, i) => (
         <Row key={i} dma={dma}></Row>
       ))}
+      {dmas.some((dma) => !dma.hasPipes) && (
+        <p className="bottom-warning">
+          Some of your DMAs don&apos;t have any pipes assigned, you need to
+          define your zone&apos;s inlets first.{" "}
+          <a
+            href="https://help.qatium.com/hc/en-us/articles/23182710465937-Zones"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Learn how here
+          </a>
+        </p>
+      )}
     </div>
   );
 };
@@ -74,6 +87,7 @@ const Row = ({ dma }: { dma: DMA }) => {
           style={{ backgroundColor: pickerColor }}
         ></button>
         <div className="text">{dma.id}</div>
+        {!dma.hasPipes && <div>warning</div>}
       </div>
       {showColorPicker && (
         <Circle
