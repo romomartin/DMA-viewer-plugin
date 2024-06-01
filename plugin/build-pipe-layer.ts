@@ -1,5 +1,4 @@
 import { OverlayLayer, Pipe } from "@qatium/plugin/engine";
-import { Color } from "@deck.gl/core/typed";
 import { Feature } from "geojson";
 
 export const buildPipeLayer = (
@@ -29,7 +28,9 @@ export const buildPipeLayer = (
   };
 };
 
-const hexToRgb = (hex: string): Color => {
+const hexToRgb = (
+  hex: string
+): OverlayLayer<"GeoJsonLayer">["getLineColor"] => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? [

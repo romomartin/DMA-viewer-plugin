@@ -2,15 +2,15 @@ import {
   OverlayLayer,
   Pipe,
   PipeGroups,
-  PluginI,
+  PluginEngine,
   SDK,
-  registerPlugin
+  init
 } from "@qatium/plugin/engine";
 import { DMA, Message, events } from "./types";
 import { getColor } from "./colors";
 import { buildPipeLayer } from "./build-pipe-layer";
 
-class Plugin implements PluginI<Message> {
+class Plugin implements PluginEngine {
   isFirstRun: boolean = true;
   dmaLayers: OverlayLayer<"GeoJsonLayer">[] = [];
   dmas: DMA[] = [];
@@ -107,4 +107,4 @@ const getDmaPipes = (sdk: SDK, dma: DMA): Pipe[] | undefined => {
   return dmaPipes;
 };
 
-registerPlugin(new Plugin());
+init(new Plugin());
