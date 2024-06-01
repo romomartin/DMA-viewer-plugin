@@ -5,6 +5,7 @@ import { onMessage, sendMessage } from "@qatium/plugin/ui";
 import { ColorResult } from "react-color";
 import { COLORS } from "../../plugin/colors";
 import Circle from "react-color/lib/components/circle/Circle";
+import { IconWarning } from "../icons/icon-warning";
 
 export const Panel = () => {
   const [dmas, setDmas] = useState<DMA[]>([]);
@@ -23,13 +24,13 @@ const PanelBody = ({ dmas }: { dmas: DMA[] }) => {
     return (
       <div className="panel-body">
         <p>
-          Add a zones layer first.{" "}
+          No DMAs in your network yet.<br></br>
           <a
             href="https://help.qatium.com/hc/en-us/articles/23182710465937-Zones"
             target="_blank"
             rel="noreferrer"
           >
-            Learn how here
+            Add a zone layer to start
           </a>
         </p>
       </div>
@@ -42,14 +43,13 @@ const PanelBody = ({ dmas }: { dmas: DMA[] }) => {
       ))}
       {dmas.some((dma) => !dma.hasPipes) && (
         <p className="bottom-warning">
-          Some of your DMAs don&apos;t have any pipes assigned, you need to
-          define your zone&apos;s inlets first.{" "}
+          Some DMAs have no assigned pipes.<br></br>
           <a
             href="https://help.qatium.com/hc/en-us/articles/23182710465937-Zones"
             target="_blank"
             rel="noreferrer"
           >
-            Learn how here
+            Define your zone inlets
           </a>
         </p>
       )}
@@ -80,14 +80,16 @@ const Row = ({ dma }: { dma: DMA }) => {
   return (
     <>
       <div className="row">
-        <button
-          className={showColorPicker ? "selected" : ""}
-          aria-label={`${dma.id}-color-picker-button`}
-          onClick={toggleColorPicker}
-          style={{ backgroundColor: pickerColor }}
-        ></button>
+        {dma.hasPipes && (
+          <button
+            className={showColorPicker ? "selected" : ""}
+            aria-label={`${dma.id}-color-picker-button`}
+            onClick={toggleColorPicker}
+            style={{ backgroundColor: pickerColor }}
+          ></button>
+        )}
+        {!dma.hasPipes && <IconWarning></IconWarning>}
         <div className="text">{dma.id}</div>
-        {!dma.hasPipes && <div>warning</div>}
       </div>
       {showColorPicker && (
         <Circle
