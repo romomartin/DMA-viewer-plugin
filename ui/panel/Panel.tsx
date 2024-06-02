@@ -24,7 +24,7 @@ const PanelBody = ({ dmas }: { dmas: DMA[] }) => {
     return (
       <div className="panel-body">
         <p>
-          No DMAs in your network yet.<br></br>
+          No DMAs in your network yet.{" "}
           <a
             href="https://help.qatium.com/hc/en-us/articles/23182710465937-Zones"
             target="_blank"
@@ -43,13 +43,14 @@ const PanelBody = ({ dmas }: { dmas: DMA[] }) => {
       ))}
       {dmas.some((dma) => !dma.hasPipes) && (
         <p className="bottom-warning">
-          Some DMAs have no assigned pipes.<br></br>
+          Some DMAs don&apos;t have any pipes assigned. Define the zone inlets
+          first.{" "}
           <a
             href="https://help.qatium.com/hc/en-us/articles/23182710465937-Zones"
             target="_blank"
             rel="noreferrer"
           >
-            Define your zone inlets
+            Learn how
           </a>
         </p>
       )}
