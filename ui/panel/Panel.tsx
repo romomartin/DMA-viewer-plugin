@@ -89,7 +89,11 @@ const Row = ({ dma }: { dma: DMA }) => {
             style={{ backgroundColor: pickerColor }}
           ></button>
         )}
-        {!dma.hasPipes && <IconWarning></IconWarning>}
+        {!dma.hasPipes && (
+          <div className="warning">
+            <IconWarning></IconWarning>
+          </div>
+        )}
         <div className="text">{dma.id}</div>
       </div>
       {showColorPicker && (

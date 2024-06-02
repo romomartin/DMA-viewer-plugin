@@ -36,6 +36,11 @@
   margin: 8px
 }
 
+.row .warning{
+  width: 14px;
+  margin: 0 1.5px;
+}
+
 .row button{
   width: 17px;
   height: 17px;
