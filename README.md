@@ -1,25 +1,13 @@
-# Qatium Sample plugin in React Typescript
+# Qatium DMA viewer plugin in React Typescript
 
-This sample is a skeleton project of a Qatium plugin. Using it, you can extend Qatium's functionality and its user interface.
-
-## Running the plugin
-
-Start the development server
-```bash
-npm install
-npm run dev
-```
-
-Open Qatium in development mode to see your changes. To do so, open Qatium and enter one of your networks. When it has finished loading, enable developer mode by adding `?developerMode=true` to the network URL, like the following:
-
-From
-```
-https://qatium.app/network/ece7ed44-7d42-4193-b117-6a979c0c513f/Magnetic-Island,-AU-Demo
-```
-
-To
-```
-https://qatium.app/network/ece7ed44-7d42-4193-b117-6a979c0c513f/Magnetic-Island,-AU-Demo?developerMode=true
-```
-
-You should see your new plugin in the right side panel.
+This is a plugin built with <a href="https://developer.qatium.app/">Qatium's SDK</a>Qatium's SDK that allows the visualization of DMA pipes in a water network using different colors
+<br/>
+<br/>
+<div align="center">
+  <img src="https://github.com/romomartin/DMA-viewer-plugin/assets/72378221/30a34f0c-8176-4a87-ada4-e046de7a15b5" alt="plugin demo gif"/>
+</div>
+<br/>
+<br/>
+<div align="center">
+  <a href="https://qatium.com/"><img src="https://qatium.com/wp-content/uploads/2020/10/Qatium-logo-horizontal-tagline-blue.png" alt="Qatium logo"/></a>
+</div>
