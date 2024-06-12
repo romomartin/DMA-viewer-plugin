@@ -1,6 +1,6 @@
 # Qatium DMA viewer plugin in React Typescript
 
-This is a plugin built with <a href="https://developer.qatium.app/">Qatium's SDK</a>Qatium's SDK that allows the visualization of DMA pipes in a water network using different colors
+This is a plugin built with <a href="https://developer.qatium.app/">Qatium's SDK</a> that allows the visualization of DMA pipes in a water network using different colors.
 <br/>
 <br/>
 <div align="center">
