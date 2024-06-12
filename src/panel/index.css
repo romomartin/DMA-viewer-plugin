@@ -5,8 +5,7 @@ html * {
 }
 
 html {
-  overflow: auto;
-  scrollbar-color: rgb(97, 97, 133) rgba(0, 0, 0, 0);
+  overflow: hidden;
 }
 
 body {

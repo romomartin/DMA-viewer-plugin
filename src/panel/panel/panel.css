@@ -4,41 +4,47 @@
   margin-left: 8px;
   margin-bottom: 16px;
   margin-right: 8px;
-}
-
-.panel-body p{
-  font-size: 13px;
+  font-size: 14px;
   color: rgb(180, 180, 202);
+}
+
+.panel-body p {
   margin: 0;
-  text-align: justify;
 }
 
-.panel-body a{
-  font-size: 13px;
+.panel-body h4 {
+  color: white;
+  margin-bottom: 3px;
+}
+
+.panel-body a {
   color: rgb(74, 177, 215);
-  margin: 0
+  margin: 0;
 }
 
-.bottom-warning {
-  padding-top: 8px;
-}
-
-.row{
+.row,
+.row-warning {
   display: flex;
   flex-direction: row;
   justify-content: start;
   align-items: center;
 }
 
+.row-warning {
+  padding-top: 8px;
+  margin-left: -4px;
+}
+
+.row-warning .icon{
+  align-self: flex-start;
+  width: 14px;
+  padding-right: 8px;
+}
+
 .row .text{
   font-size:  14px;
   color: rgb(180, 180, 202);
-  margin: 8px
-}
-
-.row .warning{
-  width: 14px;
-  margin: 0 1.5px;
+  margin: 8px;
 }
 
 .row button{
@@ -54,7 +60,7 @@
 }
 
 .row button:hover{
-  transform: scale(1.2)
+  transform: scale(1.2);
 }
 
 .circle-picker{
@@ -68,4 +74,18 @@
 
 .circle-picker span div{
   margin-bottom: 0 !important;
+}
+
+.unrecognized-list {
+  margin-top: 4px;
+  color: white;
+}
+
+.unrecognized-list li{
+  margin-top: 8px;
+}
+
+.warning-text {
+  font-size: 13px;
+  line-height: 1.2em;
 }
