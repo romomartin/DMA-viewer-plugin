@@ -1,4 +1,4 @@
-import { OverlayLayer, Pipe } from "@qatium/plugin/engine";
+import { OverlayLayer, Pipe } from "@qatium/sdk";
 import { Feature } from "geojson";
 
 export const buildPipeLayer = (

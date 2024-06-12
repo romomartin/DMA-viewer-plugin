@@ -2,8 +2,9 @@
   "compilerOptions": {
     "target": "ES6",
     "useDefineForClassFields": true,
+    "esModuleInterop": true,
     "lib": [
-      "ES6",
+      "ES6"
     ],
     "module": "ESNext",
     "skipLibCheck": true,

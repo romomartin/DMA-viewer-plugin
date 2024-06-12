@@ -3,14 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "vite:ui": "vite --config vite.config.ui.ts",
-    "vite:plugin": "vite --config vite.config.plugin.ts build",
-    "dev": "concurrently \"npm:dev:*\"",
-    "dev:ui": "npm run vite:ui",
-    "dev:plugin": "npm run vite:plugin -- --watch",
-    "build": "rimraf dist && npm run build:plugin && npm run build:ui",
-    "build:ui": "tsc --project ui/tsconfig.json && rm -f public/engine.js && npm run vite:ui -- build",
-    "build:plugin": "tsc --project plugin/tsconfig.json && npm run vite:plugin -- --outDir dist",
+    "clean": "rimraf dist src/public/plugin.js",
+    "dev": "tsx build.config.ts --dev",
+    "build": "tsc --project src/panel/tsconfig.json && tsc --project src/plugin/tsconfig.json && tsx build.config.ts",
+    "test": "jest --verbose",
     "lint": "eslint ./ui --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "devDependencies": {
@@ -30,13 +26,13 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "eslint-plugin-testing-library": "^6.2.2",
     "rimraf": "^5.0.5",
+    "tsx": "^4.11.2",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vite-plugin-singlefile": "^1.0.0"
   },
   "dependencies": {
-    "@qatium/plugin": "^0.0.33",
-    "@qatium/sdk": "^0.0.19",
+    "@qatium/sdk": "^0.0.22",
     "react": "^18.2.0",
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0"

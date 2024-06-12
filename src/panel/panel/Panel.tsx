@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./panel.css";
 import { DMA, Message, events } from "../../plugin/types";
-import { onMessage, sendMessage } from "@qatium/plugin/ui";
+import { onMessage, sendMessage } from "@qatium/sdk/ui";
 import { ColorResult } from "react-color";
 import { COLORS } from "../../plugin/colors";
 import Circle from "react-color/lib/components/circle/Circle";
